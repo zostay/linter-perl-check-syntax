@@ -45,14 +45,20 @@ class PerlCheckSyntax
                     line = parseInt(match.capture('line'), 10) - 1
                     #col = parseInt(match.capture('column'), 10) - 1
                     message = match.capture('message')
-                    messages.push
-                        type: 'Error'
-                        text: message
-                        filePath: filePath
-                        range: [
-                            [line, 0]
-                            [line, textEditor.getBuffer().lineLengthForRow(line)]
-                        ]
+                    if line >= 0
+                        messages.push
+                            type: 'Error'
+                            text: message
+                            filePath: filePath
+                            range: [
+                                [line, 0]
+                                [line, textEditor.getBuffer().lineLengthForRow(line)]
+                            ]
+                    else
+                        messages.push
+                            type: 'Error'
+                            text: message
+                            filePath: filePath
 
                 return messages
 
